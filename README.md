@@ -32,6 +32,7 @@
 
 Ответ
 
+```sql
 SELECT 
     s.first_name AS "Фамилия сотрудника",
     s.last_name AS "Имя сотрудника",
@@ -51,7 +52,7 @@ GROUP BY
     st.store_id, s.first_name, s.last_name, c.city
 HAVING 
     COUNT(cu.customer_id) > 300;
-
+```
 ![alt text](https://github.com/Nikich828/12_4hw/blob/master/1.jpeg)
 
 
@@ -61,13 +62,14 @@ HAVING
 
 Ответ
 
+```sql
 SELECT 
     COUNT(*) AS "Количество длинных фильмов"
 FROM 
     film
 WHERE 
     length > (SELECT AVG(length) FROM film);
-
+```
 ![alt text](https://github.com/Nikich828/12_4hw/blob/master/2.jpeg)
 
 ### Задание 3.
@@ -76,6 +78,7 @@ WHERE
 
 Ответ
 
+```sql
 SELECT 
     DATE_FORMAT(p.payment_date, '%Y-%m-01') AS "Месяц",
     SUM(p.amount) AS "Сумма платежей",
@@ -89,5 +92,5 @@ GROUP BY
 ORDER BY 
     SUM(p.amount) DESC
 LIMIT 1;
-
+```
 ![alt text](https://github.com/Nikich828/12_4hw/blob/master/3.jpeg)
