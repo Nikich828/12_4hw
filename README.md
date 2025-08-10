@@ -32,6 +32,26 @@
 
 Ответ
 
+SELECT 
+    s.first_name AS "Фамилия сотрудника",
+    s.last_name AS "Имя сотрудника",
+    c.city AS "Город магазина",
+    COUNT(cu.customer_id) AS "Количество клиентов"
+FROM 
+    store st
+JOIN 
+    staff s ON st.manager_staff_id = s.staff_id
+JOIN 
+    address a ON st.address_id = a.address_id
+JOIN 
+    city c ON a.city_id = c.city_id
+JOIN 
+    customer cu ON st.store_id = cu.store_id
+GROUP BY 
+    st.store_id, s.first_name, s.last_name, c.city
+HAVING 
+    COUNT(cu.customer_id) > 300;
+
 ![alt text](https://github.com/Nikich828/12_4hw/blob/master/1.jpeg)
 
 
@@ -41,6 +61,13 @@
 
 Ответ
 
+SELECT 
+    COUNT(*) AS "Количество длинных фильмов"
+FROM 
+    film
+WHERE 
+    length > (SELECT AVG(length) FROM film);
+
 ![alt text](https://github.com/Nikich828/12_4hw/blob/master/2.jpeg)
 
 ### Задание 3.
@@ -48,5 +75,19 @@
 Получите информацию, за какой месяц была получена наибольшая сумма платежей, и добавьте информацию по количеству аренд за этот месяц.
 
 Ответ
+
+SELECT 
+    DATE_FORMAT(p.payment_date, '%Y-%m-01') AS "Месяц",
+    SUM(p.amount) AS "Сумма платежей",
+    COUNT(r.rental_id) AS "Количество аренд"
+FROM 
+    payment p
+JOIN
+    rental r ON p.rental_id = r.rental_id
+GROUP BY 
+    DATE_FORMAT(p.payment_date, '%Y-%m-01')
+ORDER BY 
+    SUM(p.amount) DESC
+LIMIT 1;
 
 ![alt text](https://github.com/Nikich828/12_4hw/blob/master/3.jpeg)
